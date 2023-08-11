@@ -1,17 +1,13 @@
 name: Build and push image
 
 on:
-  push:
-    branches:
-      - "add/harbor-vulnerabilities-files"
   release:
     types: [published]
 
 env:
   REGISTRY: "ghcr.io"
   IMAGE: "nccloud/harbor-vulnerabilities-exporter"
-  TAG: "v0.0.1"
-  #TAG: ${{ github.event.release.tag_name }}
+  TAG: ${{ github.event.release.tag_name }}
 
 jobs:
   release:
