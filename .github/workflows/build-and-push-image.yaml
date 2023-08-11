@@ -3,7 +3,7 @@ name: Build and push image
 on:
   push:
     branches:
-      - "add/harbor-exporter"
+      - "add/harbor-vulnerabilities-files"
   release:
     types: [published]
 
