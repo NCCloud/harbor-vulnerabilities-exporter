@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "harbor-vulnerabilities-exporter.name" . }}
+  labels:
+{{- include "harbor-vulnerabilities-exporter.labels" . | nindent 4 }}
+spec:
+  jobLabel: harbor-vulnerabilities-exporter
+  selector:
+    matchLabels:
+{{- include "harbor-vulnerabilities-exporter.labels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
+      scrapeTimeout: {{ .Values.scrapeTimeout }}
+      interval: {{ .Values.scrapeInterval }}
+      honorLabels: true

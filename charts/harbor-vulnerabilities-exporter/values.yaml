@@ -1,0 +1,17 @@
+---
+replicas: 1
+harborApiUrl: 'http://harbor-harbor-harbor-core.harbor/api/v2.0 '
+exporterPort: 8000
+threadCount: 5
+
+# script won't use credentials if values are empty
+harborUsername: ''
+harborPassword: ''
+
+scrapeTimeout: "30s"
+scrapeInterval: "300s"
+
+image:
+  repository: ghcr.io/nccloud/harbor-vulnerabilities-exporter
+  tag: latest
+  imagePullPolicy: Always

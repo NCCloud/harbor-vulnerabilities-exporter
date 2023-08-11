@@ -1,0 +1,4 @@
+apiVersion: v2
+name: harbor-vulnerabilities-exporter
+description: A Helm chart for showing vulnerabilities information in images stored in Harbor
+version: 0.0.1
