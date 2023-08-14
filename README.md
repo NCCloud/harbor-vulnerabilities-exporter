@@ -72,28 +72,14 @@ or using container image:
 
 ### Helm chart
 
-Variables:
-
-| Configuration        | Description                                                       | Default Value                                            |
-|----------------------|-------------------------------------------------------------------|----------------------------------------------------------|
-| replicas             | Number of replicas for the exporter deployment.                   | 1                                                        |
-| harborApiUrl         | The API URL of your Harbor instance.                              | http://harbor-harbor-harbor-core.harbor/api/v2.0         |
-| exporterPort         | Port for the Prometheus metrics exporter.                         | 8000                                                     |
-| threadCount          | Number of parallel threads for API requests.                      | 5                                                        |
-| harborUsername       | Your Harbor username (leave empty if not required).               |                                                          |
-| harborPassword       | Your Harbor password (leave empty if not required).               |                                                          |
-| scrapeTimeout        | Timeout for Prometheus scraping.                                  | "30s"                                                    |
-| scrapeInterval       | Interval for Prometheus scraping.                                 | "300s"                                                   |
-| image.repository     | Repository for the exporter Docker image.                         | ghcr.io/nccloud/harbor-vulnerabilities-exporter          |
-| image.tag            | Tag for the exporter Docker image.                                | latest                                                   |
-| image.imagePullPolicy| Image pull policy for Kubernetes.                                 | Always                                                   |
-
 Install helm chart:
 
    ```bash
    cd charts/harbor-vulnerabilities-exporter
    helm install harbor-vulnerabilities-exporter .
    ```
+
+See [variables](https://github.com/NCCloud/harbor-vulnerabilities-exporter/blob/main/charts/harbor-vulnerabilities-exporter/README.md) for details.
 
 ## Versioning
 
