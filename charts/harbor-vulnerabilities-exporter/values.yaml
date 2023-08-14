@@ -8,10 +8,12 @@ threadCount: 5
 harborUsername: ''
 harborPassword: ''
 
-scrapeTimeout: "30s"
-scrapeInterval: "300s"
-
 image:
   repository: ghcr.io/nccloud/harbor-vulnerabilities-exporter
   tag: latest
   imagePullPolicy: Always
+
+serviceMonitor:
+  enabled: true
+  scrapeTimeout: "30s"
+  scrapeInterval: "300s"

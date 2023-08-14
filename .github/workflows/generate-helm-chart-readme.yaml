@@ -1,0 +1,29 @@
+name: Update Helm Chart Documentation
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+
+jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install helm-docs
+        run: |
+          wget -O helm-docs.deb https://github.com/norwoodj/helm-docs/releases/download/v1.11.0/helm-docs_1.11.0_Linux_x86_64.deb
+          dpkg -i helm-docs.deb
+
+      - name: Generate Helm Chart Documentation
+        run: helm-docs
+
+      - name: Update README
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generated README.MD using helm-docs
