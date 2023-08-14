@@ -4,18 +4,16 @@ harborApiUrl: 'http://harbor-harbor-harbor-core.harbor/api/v2.0'
 exporterPort: 8000
 threadCount: 5
 
-# -- harbor username and password, script won't use credentials if values are empty
 harborUsername: ''
 harborPassword: ''
 
-# -- exporter image details
 image:
   repository: ghcr.io/nccloud/harbor-vulnerabilities-exporter
   tag: latest
   imagePullPolicy: Always
 
-# -- serviceMonitor can be disabled if needed
 serviceMonitor:
+  # -- serviceMonitor can be disabled if needed
   enabled: true
   scrapeTimeout: "30s"
   scrapeInterval: "300s"
