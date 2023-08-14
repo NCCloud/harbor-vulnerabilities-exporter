@@ -9,16 +9,12 @@ A Helm chart for showing vulnerabilities information in images stored in Harbor
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | exporterPort | int | `8000` |  |
-| harborApiUrl | string | `"http://harbor-harbor-harbor-core.harbor/api/v2.0 "` |  |
+| harborApiUrl | string | `"http://harbor-harbor-harbor-core.harbor/api/v2.0"` |  |
 | harborPassword | string | `""` |  |
-| harborUsername | string | `""` |  |
-| image.imagePullPolicy | string | `"Always"` |  |
-| image.repository | string | `"ghcr.io/nccloud/harbor-vulnerabilities-exporter"` |  |
-| image.tag | string | `"latest"` |  |
+| harborUsername | string | `""` | harbor username and password, script won't use credentials if values are empty |
+| image | object | `{"imagePullPolicy":"Always","repository":"ghcr.io/nccloud/harbor-vulnerabilities-exporter","tag":"latest"}` | exporter image details |
 | replicas | int | `1` |  |
-| serviceMonitor.enabled | bool | `true` |  |
-| serviceMonitor.scrapeInterval | string | `"300s"` |  |
-| serviceMonitor.scrapeTimeout | string | `"30s"` |  |
+| serviceMonitor | object | `{"enabled":true,"scrapeInterval":"300s","scrapeTimeout":"30s"}` | serviceMonitor can be disabled if needed |
 | threadCount | int | `5` |  |
 
 ----------------------------------------------
