@@ -18,9 +18,9 @@ jobs:
 
       - name: Install helm-docs
         env:
-          HELM_DOCS_VERSION: v1.11.0
+          HELM_DOCS_VERSION: 1.11.0
         run: |
-          wget -O helm-docs.deb "https://github.com/norwoodj/helm-docs/releases/download/${HELM_DOCS_VERSION}/helm-docs_${HELM_DOCS_VERSION}_Linux_x86_64.deb"
+          wget -O helm-docs.deb "https://github.com/norwoodj/helm-docs/releases/download/v${HELM_DOCS_VERSION}/helm-docs_${HELM_DOCS_VERSION}_Linux_x86_64.deb"
           sudo dpkg -i helm-docs.deb
           rm -f helm-docs.deb
 
