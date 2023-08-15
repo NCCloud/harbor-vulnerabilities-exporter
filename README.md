@@ -100,7 +100,7 @@ See [values](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabi
 We use [SemVer](http://semver.org/) for versioning.
 To see the available versions, check [tags in this repository](https://github.com/NCCloud/harbor-vulnerabilities-exporter/tags).
 
-## Contribution
+## Contributing
 
 We welcome contributions, issues, and feature requests!
 Also, please refer to our [contribution guidelines](https://github.com/NCCloud/harbor-vulnerabilities-exporter/blob/main/CONTRIBUTING.md) for details.
