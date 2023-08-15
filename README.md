@@ -72,23 +72,29 @@ or using container image:
 
 ### Helm chart
 
-Install helm chart:
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 
-   ```bash
-   cd charts/harbor-vulnerabilities-exporter
-   helm install harbor-vulnerabilities-exporter .
-   ```
+Once Helm has been set up correctly, add the repo as follows:
 
-See [variables](https://github.com/NCCloud/harbor-vulnerabilities-exporter/blob/main/charts/harbor-vulnerabilities-exporter/README.md) for details.
+  ```bash
+  helm repo add nccloud https://nccloud.github.io/charts
+  ```
+
+If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages.
+You can then run `helm search repo nccloud` to see the charts.
+
+To install the exporter chart:
+
+  ```bash
+  helm install harbor-vulnerabilities-exporter nccloud/harbor-vulnerabilities-exporter
+  ```
+
+See [variables](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabilities-exporter/README.md) for details.
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
 To see the available versions, check [tags in this repository](https://github.com/NCCloud/harbor-vulnerabilities-exporter/tags).
-
-Once you are ready to make a new release, perform the following steps:
-1. Open a pull request and assign the `release` label to it.
-2. Merge the PR. This will trigger the pipeline which will build and publish the container image to the ghcr.
 
 ## Contribution
 
