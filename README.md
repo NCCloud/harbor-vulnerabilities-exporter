@@ -1,7 +1,7 @@
 # Harbor Vulnerabilities Exporter
 <p float="left">
   <img src="https://logowik.com/content/uploads/images/prometheus-monitoring-system4911.logowik.com.webp" width="33%" height="33%" />
-  <img src="https://goharbor.io/img/logos/harbor-icon-color.png" width="33%" height="400"  />
+  <img src="https://goharbor.io/img/logos/harbor-icon-color.png" width="33%" height="200"  />
 </p>
 
 The Harbor Vulnerabilities Prometheus Exporter is a Python script that collects vulnerability information for the latest pushed images in Harbor repositories and generates Prometheus metrics based on the collected data.
