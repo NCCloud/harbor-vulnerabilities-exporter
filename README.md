@@ -1,6 +1,6 @@
 # Harbor Vulnerabilities Exporter
 <p float="left">
-  <img src="https://logowik.com/content/uploads/images/prometheus-monitoring-system4911.logowik.com.webp" width="33%" height="33%" />
+  <img src="https://www.iconbolt.com/preview/twitter/elastic-ui-logos/prometheus.svg" width="33%" height="33%" />
   <img src="https://goharbor.io/img/logos/harbor-icon-color.png" width="200" height="200"  />
 </p>
 
