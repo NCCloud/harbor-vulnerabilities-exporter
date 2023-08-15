@@ -1,4 +1,6 @@
 # Harbor Vulnerabilities Exporter
+<img src="https://logowik.com/content/uploads/images/prometheus-monitoring-system4911.logowik.com.webp" alt="Prometheus Logo" width="300" height="200" style="display:inline-block; margin-right:20px;">
+<img src="https://goharbor.io/img/logos/harbor-icon-color.png" alt="Harbor Logo" width="200" height="200" style="display:inline-block;">
 
 The Harbor Vulnerabilities Prometheus Exporter is a Python script that collects vulnerability information for the latest pushed images in Harbor repositories and generates Prometheus metrics based on the collected data.
 
@@ -89,7 +91,7 @@ To install the exporter chart:
   helm install harbor-vulnerabilities-exporter nccloud/harbor-vulnerabilities-exporter
   ```
 
-See [variables](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabilities-exporter/README.md) for details.
+See [variables](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabilities-exporter) for details.
 
 ## Versioning
 
