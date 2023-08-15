@@ -1,4 +1,8 @@
 # Harbor Vulnerabilities Exporter
+<p float="left">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/2066px-Prometheus_software_logo.svg.png" width="200" height="200" />
+  <img src="https://goharbor.io/img/logos/harbor-icon-color.png" width="200" height="200"  />
+</p>
 
 The Harbor Vulnerabilities Prometheus Exporter is a Python script that collects vulnerability information for the latest pushed images in Harbor repositories and generates Prometheus metrics based on the collected data.
 
@@ -72,37 +76,29 @@ or using container image:
 
 ### Helm chart
 
-Variables:
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 
-| Configuration        | Description                                                       | Default Value                                            |
-|----------------------|-------------------------------------------------------------------|----------------------------------------------------------|
-| replicas             | Number of replicas for the exporter deployment.                   | 1                                                        |
-| harborApiUrl         | The API URL of your Harbor instance.                              | http://harbor-harbor-harbor-core.harbor/api/v2.0         |
-| exporterPort         | Port for the Prometheus metrics exporter.                         | 8000                                                     |
-| threadCount          | Number of parallel threads for API requests.                      | 5                                                        |
-| harborUsername       | Your Harbor username (leave empty if not required).               |                                                          |
-| harborPassword       | Your Harbor password (leave empty if not required).               |                                                          |
-| scrapeTimeout        | Timeout for Prometheus scraping.                                  | "30s"                                                    |
-| scrapeInterval       | Interval for Prometheus scraping.                                 | "300s"                                                   |
-| image.repository     | Repository for the exporter Docker image.                         | ghcr.io/nccloud/harbor-vulnerabilities-exporter          |
-| image.tag            | Tag for the exporter Docker image.                                | latest                                                   |
-| image.imagePullPolicy| Image pull policy for Kubernetes.                                 | Always                                                   |
+Once Helm has been set up correctly, add the repo as follows:
 
-Install helm chart:
+  ```bash
+  helm repo add nccloud https://nccloud.github.io/charts
+  ```
 
-   ```bash
-   cd charts/harbor-vulnerabilities-exporter
-   helm install harbor-vulnerabilities-exporter .
-   ```
+If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages.
+You can then run `helm search repo nccloud` to see the charts.
+
+To install the exporter chart:
+
+  ```bash
+  helm install harbor-vulnerabilities-exporter nccloud/harbor-vulnerabilities-exporter
+  ```
+
+See [values](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabilities-exporter) for details.
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
 To see the available versions, check [tags in this repository](https://github.com/NCCloud/harbor-vulnerabilities-exporter/tags).
-
-Once you are ready to make a new release, perform the following steps:
-1. Open a pull request and assign the `release` label to it.
-2. Merge the PR. This will trigger the pipeline which will build and publish the container image to the ghcr.
 
 ## Contribution
 
