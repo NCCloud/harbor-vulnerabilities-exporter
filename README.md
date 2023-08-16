@@ -13,6 +13,7 @@ The Harbor Vulnerabilities Prometheus Exporter is a Python script that collects 
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
+- [Grafana dashboard](#grafana-dashboard)
 - [Versioning](#versioning)
 - [Contributing](#contributing)
 - [License](#license)
@@ -94,6 +95,12 @@ To install the exporter chart:
   ```
 
 See [values](https://github.com/NCCloud/charts/blob/main/charts/harbor-vulnerabilities-exporter) for details.
+
+## Grafana dashboard
+
+Source code of the dashboard is included in the repository. Here is example of how it may look like:
+
+![Grafana dashboard](grafana-dashboard.png)
 
 ## Versioning
 
