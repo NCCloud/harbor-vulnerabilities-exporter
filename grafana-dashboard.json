@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1692175600749,
+  "iteration": 1694001923783,
   "links": [],
   "panels": [
     {
@@ -25,19 +25,20 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "rgb(242, 105, 6)",
+            "mode": "fixed"
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "yellow",
+                "color": "green",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 80
               }
             ]
           }
@@ -52,6 +53,9 @@
       },
       "id": 13,
       "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -60,9 +64,8 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        "text": {},
+        "textMode": "auto"
       },
       "pluginVersion": "7.5.11",
       "targets": [
@@ -75,7 +78,7 @@
         }
       ],
       "title": "Vulnerabilities in projects",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -186,28 +189,106 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 2,
+              "value": ""
+            }
+          ],
+          "noValue": "No vulnerabilities",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 10
-              },
-              {
-                "color": "red",
-                "value": 20
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "High"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Medium"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Low"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 6,
@@ -217,9 +298,9 @@
       },
       "id": 8,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -234,6 +315,13 @@
       "pluginVersion": "7.5.11",
       "repeat": "project",
       "repeatDirection": "v",
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "customer_support",
+          "value": "customer_support"
+        }
+      },
       "targets": [
         {
           "exemplar": true,
@@ -291,7 +379,7 @@
         },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 2,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
@@ -315,7 +403,7 @@
         "values": true
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 2,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -327,6 +415,13 @@
       "renderer": "flot",
       "repeat": "project",
       "repeatDirection": "v",
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "customer_support",
+          "value": "customer_support"
+        }
+      },
       "seriesOverrides": [
         {}
       ],
@@ -349,7 +444,1195 @@
       "title": "$project repositories vulnerabilities",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "description": "Total number of vulnerabilities in $project project divided by severity",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 2,
+              "value": ""
+            }
+          ],
+          "noValue": "No vulnerabilities",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "High"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Medium"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Low"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "devops",
+          "value": "devops"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "E"
+        }
+      ],
+      "title": "All vulnerabilities in $project project by severity",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "Number of vulnerabilities in the latest pushed image into each repository in the project",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.11",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "devops",
+          "value": "devops"
+        }
+      },
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "interval": "",
+          "legendFormat": "{{repository}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$project repositories vulnerabilities",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "description": "Total number of vulnerabilities in $project project divided by severity",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 2,
+              "value": ""
+            }
+          ],
+          "noValue": "No vulnerabilities",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "High"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Medium"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Low"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "frontend",
+          "value": "frontend"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "E"
+        }
+      ],
+      "title": "All vulnerabilities in $project project by severity",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "Number of vulnerabilities in the latest pushed image into each repository in the project",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.11",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "frontend",
+          "value": "frontend"
+        }
+      },
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "interval": "",
+          "legendFormat": "{{repository}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$project repositories vulnerabilities",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "description": "Total number of vulnerabilities in $project project divided by severity",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 2,
+              "value": ""
+            }
+          ],
+          "noValue": "No vulnerabilities",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "High"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Medium"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Low"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "infrastructure",
+          "value": "infrastructure"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "E"
+        }
+      ],
+      "title": "All vulnerabilities in $project project by severity",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "Number of vulnerabilities in the latest pushed image into each repository in the project",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.11",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "infrastructure",
+          "value": "infrastructure"
+        }
+      },
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "interval": "",
+          "legendFormat": "{{repository}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$project repositories vulnerabilities",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "description": "Total number of vulnerabilities in $project project divided by severity",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 2,
+              "value": ""
+            }
+          ],
+          "noValue": "No vulnerabilities",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Critical"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "High"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Medium"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Low"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.11",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "library",
+          "value": "library"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{severity}}",
+          "refId": "E"
+        }
+      ],
+      "title": "All vulnerabilities in $project project by severity",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "Number of vulnerabilities in the latest pushed image into each repository in the project",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "hiddenSeries": false,
+      "id": 25,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.11",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "v",
+      "repeatIteration": 1694001923783,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "project": {
+          "selected": false,
+          "text": "library",
+          "value": "library"
+        }
+      },
+      "seriesOverrides": [
+        {}
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "interval": "",
+          "legendFormat": "{{repository}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$project repositories vulnerabilities",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -392,7 +1675,7 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "align": null,
+            "align": "left",
             "displayMode": "color-background",
             "filterable": true
           },
@@ -411,24 +1694,19 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "description"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 832
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "repository"
             },
             "properties": [
               {
+                "id": "color",
+                "value": {
+                  "fixedColor": "rgb(159, 51, 199)",
+                  "mode": "fixed"
+                }
+              },
+              {
                 "id": "custom.width",
-                "value": 181
+                "value": 168
               }
             ]
           },
@@ -439,8 +1717,15 @@
             },
             "properties": [
               {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
                 "id": "custom.width",
-                "value": 99
+                "value": 79
               }
             ]
           },
@@ -451,32 +1736,29 @@
             },
             "properties": [
               {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-red",
+                  "mode": "fixed"
+                }
+              },
+              {
                 "id": "custom.width",
-                "value": 135
+                "value": 128
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Value"
+              "options": "description"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 64
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "project"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 110
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
               }
             ]
           },
@@ -487,8 +1769,34 @@
             },
             "properties": [
               {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              },
+              {
                 "id": "custom.width",
-                "value": 142
+                "value": 116
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "rgb(43, 29, 29)",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 129
               }
             ]
           },
@@ -500,31 +1808,19 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 186
+                "value": 146
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "id"
+              "options": "project"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 165
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 217
+                "value": 134
               }
             ]
           }
@@ -541,12 +1837,7 @@
       "maxDataPoints": 1,
       "options": {
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "project"
-          }
-        ]
+        "sortBy": []
       },
       "pluginVersion": "7.5.11",
       "targets": [
@@ -598,7 +1889,12 @@
     "list": [
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": null,
         "definition": "label_values(harbor_project_repo_total,project_name)",
         "description": null,
         "error": null,
@@ -632,6 +1928,5 @@
   "timezone": "",
   "title": "Harbor image vulnerabilities",
   "uid": "fowX27j4k",
-  "version": 12
+  "version": 35
 }
-
