@@ -21,7 +21,7 @@ HARBOR_PASSWORD = os.environ.get('HARBOR_PASSWORD')
 THREADS = int(os.environ.get('THREADS', 5))
 URL_PARAMS = {"page": 1, "page_size": 0}
 # comma separated list of project/repositories to ignore (won't create a metric in prometheus), for example: 'project/repo1,project/repo2'
-IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',')]
+IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',') if repo.strip()]
 
 
 if not HARBOR_API_URL:
