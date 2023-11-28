@@ -59,6 +59,7 @@ You can configure the exporter using environment variables:
 - **HARBOR_PASSWORD**: Your Harbor password (optional).
 - **THREADS**: Number of parallel threads for API requests (default is 5).
 - **EXPORTER_PORT**: Port for the Prometheus metrics exporter (default is 8000).
+- **IGNORE_REPOSITORIES**: List of projects/repositories to ignore in a metrics collecting (optional). For example: ["project/repo1", "project/repo2"].
 
 ## Usage
 

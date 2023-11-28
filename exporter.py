@@ -20,6 +20,8 @@ HARBOR_PASSWORD = os.environ.get('HARBOR_PASSWORD')
 # number of parallel threads to use in API requests, default value is 5
 THREADS = int(os.environ.get('THREADS', 5))
 URL_PARAMS = {"page": 1, "page_size": 0}
+# list of project/repositories to ignore (won't create a metric in prometheus), for example: ["project/repo1", "project/repo2"]
+IGNORE_REPOSITORIES = os.environ.get('IGNORE_REPOSITORIES', [])
 
 if not HARBOR_API_URL:
     logging.error('harbor api url was not specified. You have to set HARBOR_API_URL env variable.')
@@ -117,6 +119,11 @@ class CustomCollector:
 
         """
         try:
+            # Check if the repository is in the ignore list
+            if f"{repo['name']}" in IGNORE_REPOSITORIES:
+                logging.info(f"Repository {repo['name']} is in the ignore list. Skipping.")
+                return
+
             project, repository = repo['name'].split("/", maxsplit=1)
             # this is needed for getting repos like proxy.docker.io/bitnami/nginx
             repository_patched = requests.utils.quote(repository, safe="")
