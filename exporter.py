@@ -23,6 +23,7 @@ URL_PARAMS = {"page": 1, "page_size": 0}
 # comma separated list of project/repositories to ignore (won't create a metric in prometheus), for example: 'project/repo1,project/repo2'
 IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',') if repo.strip()]
 
+
 if not HARBOR_API_URL:
     logging.error('harbor api url was not specified. You have to set HARBOR_API_URL env variable.')
     # HARBOR_API_URL variable is a must, exitting script
