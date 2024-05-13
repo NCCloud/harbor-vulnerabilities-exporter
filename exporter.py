@@ -20,10 +20,8 @@ HARBOR_PASSWORD = os.environ.get('HARBOR_PASSWORD')
 # number of parallel threads to use in API requests, default value is 5
 THREADS = int(os.environ.get('THREADS', 5))
 URL_PARAMS = {"page": 1, "page_size": 0}
-# space separated list of project/repositories to ignore (won't create a metric in prometheus), for example:
-# IGNORE_REPOSITORIES = '[project/repo1 project/repo2]'
-IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").strip('[]').split() if repo.strip()]
-
+# comma separated list of project/repositories to ignore (won't create a metric in prometheus), for example: 'project/repo1,project/repo2'
+IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',') if repo.strip()]
 
 if not HARBOR_API_URL:
     logging.error('harbor api url was not specified. You have to set HARBOR_API_URL env variable.')
