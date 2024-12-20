@@ -6,6 +6,7 @@ import time
 import logging
 import requests
 import concurrent.futures
+import threading
 
 from prometheus_client.core import REGISTRY, GaugeMetricFamily
 from prometheus_client import start_http_server
@@ -38,6 +39,7 @@ if HARBOR_USERNAME and HARBOR_PASSWORD:
 class CustomCollector:
     def __init__(self):
         self.metrics = []
+        self.lock = threading.Lock()
 
     def parse_vulnerabilities(self, vulnerabilities, repository):
         """
@@ -168,32 +170,33 @@ class CustomCollector:
             logging.error(f'Error processing project {project["name"]}: {str(e)}')
 
     def collect(self):
-        """
-        Collect vulnerabilities for latest pushed images in all projects and repositories in Harbor
-        Then making Prometheus metrics with project_repository in the name and vulnerabilities details in labels
+        with self.lock:
+            """
+            Collect vulnerabilities for latest pushed images in all projects and repositories in Harbor
+            Then making Prometheus metrics with project_repository in the name and vulnerabilities details in labels
 
-        Returns:
-            metrics: List of Prometheus metrics.
+            Returns:
+                metrics: List of Prometheus metrics.
 
-        """
-        try:
-            self.metrics = []
-            url = f'{HARBOR_API_URL}/projects'
-            response = requests.get(url, params=URL_PARAMS, auth=AUTH)
-            response.raise_for_status()
-            projects = response.json()
+            """
+            try:
+                self.metrics = []
+                url = f'{HARBOR_API_URL}/projects'
+                response = requests.get(url, params=URL_PARAMS, auth=AUTH)
+                response.raise_for_status()
+                projects = response.json()
 
-            # Use ThreadPoolExecutor for parallel requests
-            with concurrent.futures.ThreadPoolExecutor(max_workers=THREADS) as executor:
-                # Submit the requests for each project
-                futures = [executor.submit(self.process_project, project) for project in projects]
-                # Wait for all the requests to complete
-                concurrent.futures.wait(futures)
+                # Use ThreadPoolExecutor for parallel requests
+                with concurrent.futures.ThreadPoolExecutor(max_workers=THREADS) as executor:
+                    # Submit the requests for each project
+                    futures = [executor.submit(self.process_project, project) for project in projects]
+                    # Wait for all the requests to complete
+                    concurrent.futures.wait(futures)
 
-        except requests.exceptions.RequestException as e:
-            logging.error(f'Error retrieving projects: {str(e)}')
+            except requests.exceptions.RequestException as e:
+                logging.error(f'Error retrieving projects: {str(e)}')
 
-        return self.metrics
+            return self.metrics
 
 
 if __name__ == '__main__':
