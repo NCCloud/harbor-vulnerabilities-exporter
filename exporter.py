@@ -170,15 +170,15 @@ class CustomCollector:
             logging.error(f'Error processing project {project["name"]}: {str(e)}')
 
     def collect(self):
+        """
+        Collect vulnerabilities for latest pushed images in all projects and repositories in Harbor
+        Then making Prometheus metrics with project_repository in the name and vulnerabilities details in labels
+
+        Returns:
+            metrics: List of Prometheus metrics.
+
+        """
         with self.lock:
-            """
-            Collect vulnerabilities for latest pushed images in all projects and repositories in Harbor
-            Then making Prometheus metrics with project_repository in the name and vulnerabilities details in labels
-
-            Returns:
-                metrics: List of Prometheus metrics.
-
-            """
             try:
                 self.metrics = []
                 url = f'{HARBOR_API_URL}/projects'
