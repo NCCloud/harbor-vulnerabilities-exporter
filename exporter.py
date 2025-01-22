@@ -128,8 +128,10 @@ class CustomCollector:
                 return
 
             project, repository = repo['name'].split("/", maxsplit=1)
+            repository = repository.replace("/library", "")
             # this is needed for getting repos like proxy.docker.io/bitnami/nginx
             repository_patched = requests.utils.quote(repository, safe="")
+            repository_patched = requests.utils.quote(repository_patched, safe="")
             url = f'{HARBOR_API_URL}/projects/{project}/repositories/{repository_patched}/artifacts'
             response = requests.get(url, params=URL_PARAMS, auth=AUTH)
             response.raise_for_status()
