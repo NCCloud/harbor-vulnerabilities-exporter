@@ -18,8 +18,23 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 HARBOR_API_URL = os.environ.get('HARBOR_API_URL')
 HARBOR_USERNAME = os.environ.get('HARBOR_USERNAME')
 HARBOR_PASSWORD = os.environ.get('HARBOR_PASSWORD')
+
+# Request timeout in seconds (default: 30)
+DEFAULT_REQUEST_TIMEOUT = 30
+try:
+    REQUEST_TIMEOUT = int(os.environ.get('REQUEST_TIMEOUT', DEFAULT_REQUEST_TIMEOUT))
+except ValueError:
+    logging.warning(f'Invalid REQUEST_TIMEOUT value, using default: {DEFAULT_REQUEST_TIMEOUT}')
+    REQUEST_TIMEOUT = DEFAULT_REQUEST_TIMEOUT
+
 # number of parallel threads to use in API requests, default value is 5
-THREADS = int(os.environ.get('THREADS', 5))
+DEFAULT_THREADS = 5
+try:
+    THREADS = int(os.environ.get('THREADS', DEFAULT_THREADS))
+except ValueError:
+    logging.warning(f'Invalid THREADS value, using default: {DEFAULT_THREADS}')
+    THREADS = DEFAULT_THREADS
+
 URL_PARAMS = {"page": 1, "page_size": 0}
 # comma separated list of project/repositories to ignore (won't create a metric in prometheus), for example: 'project/repo1,project/repo2'
 IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',') if repo.strip()]
@@ -96,7 +111,7 @@ class CustomCollector:
             vulnerabilities_url = artifact['addition_links']['vulnerabilities']['href']
             vulnerabilities_url = vulnerabilities_url.replace("/api/v2.0", "")
 
-            response = requests.get(HARBOR_API_URL + vulnerabilities_url, auth=AUTH)
+            response = requests.get(HARBOR_API_URL + vulnerabilities_url, auth=AUTH, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             vulnerabilities_data = response.json()
             # iterating over vulnerabilities_data and get "vulnerabilities" key
@@ -133,7 +148,7 @@ class CustomCollector:
             repository_patched = requests.utils.quote(repository, safe="")
             repository_patched = requests.utils.quote(repository_patched, safe="")
             url = f'{HARBOR_API_URL}/projects/{project}/repositories/{repository_patched}/artifacts'
-            response = requests.get(url, params=URL_PARAMS, auth=AUTH)
+            response = requests.get(url, params=URL_PARAMS, auth=AUTH, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             artifacts = response.json()
             # if you have proxy cache repos and cache is expired - there will be no artifacts
@@ -157,7 +172,7 @@ class CustomCollector:
         """
         try:
             url = f'{HARBOR_API_URL}/projects/{project["name"]}/repositories'
-            response = requests.get(url, params=URL_PARAMS, auth=AUTH)
+            response = requests.get(url, params=URL_PARAMS, auth=AUTH, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             repos = response.json()
 
@@ -184,7 +199,7 @@ class CustomCollector:
             try:
                 self.metrics = []
                 url = f'{HARBOR_API_URL}/projects'
-                response = requests.get(url, params=URL_PARAMS, auth=AUTH)
+                response = requests.get(url, params=URL_PARAMS, auth=AUTH, timeout=REQUEST_TIMEOUT)
                 response.raise_for_status()
                 projects = response.json()
 
@@ -203,10 +218,16 @@ class CustomCollector:
 
 if __name__ == '__main__':
     # default exporter listening port is 8000
-    EXPORTER_PORT = int(os.environ.get('EXPORTER_PORT', 8000))
+    DEFAULT_EXPORTER_PORT = 8000
+    try:
+        EXPORTER_PORT = int(os.environ.get('EXPORTER_PORT', DEFAULT_EXPORTER_PORT))
+    except ValueError:
+        logging.warning(f'Invalid EXPORTER_PORT value, using default: {DEFAULT_EXPORTER_PORT}')
+        EXPORTER_PORT = DEFAULT_EXPORTER_PORT
 
     REGISTRY.register(CustomCollector())
     start_http_server(EXPORTER_PORT)
+    logging.info(f'Exporter started on port {EXPORTER_PORT}')
 
     while True:
         time.sleep(1)
