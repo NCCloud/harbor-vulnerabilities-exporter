@@ -1,3 +1,4 @@
 prometheus-client==0.21.0
 requests==2.32.3
+urllib3>=2.6.0
 flake8==7.1.1
