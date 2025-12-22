@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+import requests
 from exporter import CustomCollector
 
 
@@ -34,11 +35,11 @@ class TestCustomCollector(unittest.TestCase):
     def test_process_artifact(self, mock_get):
         # Configure the mock response
         mock_get.return_value.json.return_value = self.vulnerabilities
-        self.collector.process_artifact(self.artifact, self.repository)
+        metric = self.collector.process_artifact(self.artifact, self.repository)
 
-        # Get metrics to compare labels with expected_labels
-        metrics = self.collector.metrics
-        first_metric_labels = metrics[0].samples[0].labels
+        # Check returned metric labels match expected values
+        self.assertIsNotNone(metric)
+        first_metric_labels = metric.samples[0].labels
         expected_labels = {
             'id': 'CVE-2021-5678',
             'package': 'test_package',
@@ -51,13 +52,12 @@ class TestCustomCollector(unittest.TestCase):
         }
 
         self.assertEqual(first_metric_labels, expected_labels)
-        self.assertEqual(len(metrics), 1)
 
-    # Mocking the requests.get method to simulate an exception and test if process_artifact raises an exception
-    @patch('requests.get', side_effect=Exception('Test exception'))
+    # Mocking the requests.get method to simulate a request exception
+    @patch('requests.get', side_effect=requests.exceptions.RequestException('Test exception'))
     def test_process_artifact_exception(self, mock_get):
-        with self.assertRaises(Exception):
-            self.collector.process_artifact(self.artifact, self.repository)
+        result = self.collector.process_artifact(self.artifact, self.repository)
+        self.assertIsNone(result)
 
 
 if __name__ == '__main__':
