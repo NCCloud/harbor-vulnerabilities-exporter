@@ -38,7 +38,6 @@ if HARBOR_USERNAME and HARBOR_PASSWORD:
 
 class CustomCollector:
     def __init__(self):
-        self.metrics = []
         self.lock = threading.Lock()
 
     def parse_vulnerabilities(self, vulnerabilities, repository):
@@ -91,6 +90,9 @@ class CustomCollector:
             artifact (dict): Harbor artifact details.
             repository (str): Name of the repository.
 
+        Returns:
+            GaugeMetricFamily: Prometheus metric if vulnerabilities found, None otherwise.
+
         """
         try:
             vulnerabilities_url = artifact['addition_links']['vulnerabilities']['href']
@@ -104,14 +106,14 @@ class CustomCollector:
             # Checking if vulnerabilities were detected or not
             if vulnerabilities:
                 logging.info(f'Found vulnerabilities for repository {repository}')
-                metric = self.parse_vulnerabilities(vulnerabilities, repository)
-                # Add metric to the list
-                self.metrics.append(metric)
+                return self.parse_vulnerabilities(vulnerabilities, repository)
             else:
                 logging.info(f'No vulnerabilities found for repository {repository}')
+                return None
 
         except requests.exceptions.RequestException as e:
             logging.error(f'Error processing artifact: {str(e)}')
+            return None
 
     def process_repo(self, repo):
         """
@@ -120,12 +122,15 @@ class CustomCollector:
         Args:
             repo (dict): Repository details
 
+        Returns:
+            GaugeMetricFamily: Prometheus metric if vulnerabilities found, None otherwise.
+
         """
         try:
             # Check if the repository is in the ignore list
             if f"{repo['name']}" in IGNORE_REPOSITORIES:
                 logging.info(f"Repository {repo['name']} is in the ignore list. Skipping.")
-                return
+                return None
 
             project, repository = repo['name'].split("/", maxsplit=1)
             repository = repository.replace("/library", "")
@@ -140,12 +145,14 @@ class CustomCollector:
             if artifacts:
                 latest_artifact = max(artifacts, key=lambda x: x['push_time'])
                 logging.info(f'Found latest artifact for repository {repo["name"]}:')
-                self.process_artifact(latest_artifact, repo['name'])
+                return self.process_artifact(latest_artifact, repo['name'])
             else:
                 logging.info(f'No artifacts found for repository {repo["name"]}')
+                return None
 
         except requests.exceptions.RequestException as e:
             logging.error(f'Error processing repository {repo["name"]}: {str(e)}')
+            return None
 
     def process_project(self, project):
         """
@@ -154,7 +161,11 @@ class CustomCollector:
         Args:
             project (dict): Project details
 
+        Returns:
+            list: List of Prometheus metrics from all repositories in the project.
+
         """
+        metrics = []
         try:
             url = f'{HARBOR_API_URL}/projects/{project["name"]}/repositories'
             response = requests.get(url, params=URL_PARAMS, auth=AUTH)
@@ -165,11 +176,16 @@ class CustomCollector:
             with concurrent.futures.ThreadPoolExecutor(max_workers=THREADS) as executor:
                 # Submit the requests for each repo
                 futures = [executor.submit(self.process_repo, repo) for repo in repos]
-                # Wait for all the requests to complete
-                concurrent.futures.wait(futures)
+                # Collect results from completed futures
+                for future in concurrent.futures.as_completed(futures):
+                    result = future.result()
+                    if result is not None:
+                        metrics.append(result)
 
         except requests.exceptions.RequestException as e:
             logging.error(f'Error processing project {project["name"]}: {str(e)}')
+
+        return metrics
 
     def collect(self):
         """
@@ -181,8 +197,8 @@ class CustomCollector:
 
         """
         with self.lock:
+            metrics = []
             try:
-                self.metrics = []
                 url = f'{HARBOR_API_URL}/projects'
                 response = requests.get(url, params=URL_PARAMS, auth=AUTH)
                 response.raise_for_status()
@@ -192,13 +208,15 @@ class CustomCollector:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=THREADS) as executor:
                     # Submit the requests for each project
                     futures = [executor.submit(self.process_project, project) for project in projects]
-                    # Wait for all the requests to complete
-                    concurrent.futures.wait(futures)
+                    # Collect results from completed futures
+                    for future in concurrent.futures.as_completed(futures):
+                        project_metrics = future.result()
+                        metrics.extend(project_metrics)
 
             except requests.exceptions.RequestException as e:
                 logging.error(f'Error retrieving projects: {str(e)}')
 
-            return self.metrics
+            return metrics
 
 
 if __name__ == '__main__':
