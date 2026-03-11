@@ -23,6 +23,8 @@ THREADS = int(os.environ.get('THREADS', 5))
 URL_PARAMS = {"page": 1, "page_size": 0}
 # comma separated list of project/repositories to ignore (won't create a metric in prometheus), for example: 'project/repo1,project/repo2'
 IGNORE_REPOSITORIES = [repo.strip() for repo in os.environ.get('IGNORE_REPOSITORIES', "").split(',') if repo.strip()]
+# maximum number of characters to store in the description label, 0 means no limit
+DESCRIPTION_MAX_LENGTH = int(os.environ.get('DESCRIPTION_MAX_LENGTH', 0))
 
 
 if not HARBOR_API_URL:
@@ -67,7 +69,7 @@ class CustomCollector:
                     vulnerability['version'],
                     vulnerability['fix_version'],
                     vulnerability['severity'],
-                    vulnerability['description'],
+                    vulnerability['description'][:DESCRIPTION_MAX_LENGTH or None],
                     project,
                     repository
                 ]
