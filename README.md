@@ -93,6 +93,10 @@ You can configure the exporter using environment variables:
 | `harbor_exporter_collect_errors_total` | - | Number of failed crawls, projects or repositories. |
 | `harbor_exporter_api_requests_total` | `code` | Number of Harbor API requests by response code. |
 
+Metrics always reflect the latest crawl: if a project or a repository can't be fetched, its metrics are absent until the next
+successful crawl and the failure is counted in `harbor_exporter_collect_errors_total`. Only when the whole crawl fails (for example Harbor is down),
+the previous results are served and `harbor_exporter_last_success_timestamp_seconds` shows their age.
+
 The exporter also serves `/healthz` (liveness) and `/ready` (the first crawl is completed) endpoints.
 
 Example queries:

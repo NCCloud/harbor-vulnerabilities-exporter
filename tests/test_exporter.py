@@ -171,6 +171,8 @@ class FakeClient:
         return list(self._projects)
 
     def repositories(self, project):
+        if project in self.failing:
+            raise requests.exceptions.ConnectionError('boom')
         return self._projects[project]
 
     def latest_artifact(self, project, repository):
@@ -203,20 +205,31 @@ class TestCrawler(unittest.TestCase):
         reports, errors = Crawler(cfg, self.client).crawl()
 
         self.assertEqual(errors, 0)
+        # infra/empty has no artifacts (deleted repository or expired proxy cache)
         self.assertEqual(sorted(reports), [('infra', 'app'), ('infra', 'chart'), ('proxy', 'nginx')])
         self.assertEqual(reports[('infra', 'app')].vulnerabilities, {('CVE-1', 'openssl', '1.0.0', '1.0.1', 'Critical')})
         self.assertEqual(reports[('infra', 'chart')].scan.status, NOT_SCANNED)
         # nginx has only Low vulnerabilities, the report is not downloaded
         self.assertEqual(reports[('proxy', 'nginx')].vulnerabilities, set())
 
-    def test_failed_repository_keeps_previous_report(self):
+    def test_failed_repository_is_dropped(self):
         crawler = Crawler(make_config(), self.client)
         crawler.crawl()
         self.client.failing.add('infra/app')
         reports, errors = crawler.crawl()
 
+        # stale results are not served for a single repository, the failure is counted instead
         self.assertEqual(errors, 1)
-        self.assertIn(('infra', 'app'), reports)
+        self.assertEqual(sorted(reports), [('infra', 'chart'), ('proxy', 'nginx')])
+
+    def test_failed_project_is_dropped(self):
+        crawler = Crawler(make_config(), self.client)
+        crawler.crawl()
+        self.client.failing.add('infra')
+        reports, errors = crawler.crawl()
+
+        self.assertEqual(errors, 1)
+        self.assertEqual(sorted(reports), [('proxy', 'nginx')])
 
 
 class TestRender(unittest.TestCase):

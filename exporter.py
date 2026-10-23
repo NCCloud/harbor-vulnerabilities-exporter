@@ -252,7 +252,7 @@ class HarborClient:
         }
         url = f'/projects/{project}/repositories/{encode_repository(repository)}/artifacts'
         artifacts = self.get(url, params=params, headers={'X-Accept-Vulnerabilities': VULNERABILITY_MIME_TYPES}).json()
-        # if you have proxy cache repos and cache is expired - there will be no artifacts
+        # no artifacts if the repository was deleted after it had been listed or a proxy cache is expired
         return artifacts[0] if artifacts else None
 
     def vulnerabilities(self, artifact):
@@ -288,7 +288,7 @@ class Crawler:
     def __init__(self, cfg, client):
         self.cfg = cfg
         self.client = client
-        # (project, repository) -> RepositoryReport of the last crawl, reused for repositories which failed this time
+        # (project, repository) -> RepositoryReport of the last completed crawl, served when a whole crawl fails
         self.reports = {}
 
     def needs_details(self, scan):
@@ -332,7 +332,6 @@ class Crawler:
             except requests.exceptions.RequestException as e:
                 logging.error(f'Error processing project {project}: {e}')
                 errors += 1
-                reports.update({key: report for key, report in self.reports.items() if key[0] == project})
                 continue
             repositories += [(project, name) for name in names if name not in self.cfg.ignore_repositories]
 
@@ -346,8 +345,6 @@ class Crawler:
                 except Exception as e:
                     logging.error(f'Error processing repository {name}: {e}')
                     errors += 1
-                    if key in self.reports:
-                        reports[key] = self.reports[key]
                     continue
                 if report is not None:
                     reports[key] = report
