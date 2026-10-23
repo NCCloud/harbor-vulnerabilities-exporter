@@ -71,7 +71,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project) (harbor_image_vulnerabilities)",
+          "expr": "sum by (project) (harbor_image_vulnerabilities_total)",
           "interval": "",
           "legendFormat": "{{project}}",
           "refId": "A"
@@ -136,7 +136,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=~\"proxy.*\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=~\"proxy.*\"})",
           "interval": "",
           "legendFormat": "{{project}}/{{repository}}",
           "refId": "A"
@@ -325,14 +325,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Critical\"})",
           "interval": "",
           "legendFormat": "{{severity}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"High\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -340,7 +340,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Medium\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -348,7 +348,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Low\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -356,7 +356,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Unknown\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -431,7 +431,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=\"$project\"})",
           "interval": "",
           "legendFormat": "{{repository}}",
           "refId": "A"
@@ -621,14 +621,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Critical\"})",
           "interval": "",
           "legendFormat": "{{severity}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"High\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -636,7 +636,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Medium\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -644,7 +644,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Low\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -652,7 +652,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Unknown\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -728,7 +728,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=\"$project\"})",
           "interval": "",
           "legendFormat": "{{repository}}",
           "refId": "A"
@@ -918,14 +918,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Critical\"})",
           "interval": "",
           "legendFormat": "{{severity}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"High\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -933,7 +933,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Medium\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -941,7 +941,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Low\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -949,7 +949,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Unknown\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1025,7 +1025,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=\"$project\"})",
           "interval": "",
           "legendFormat": "{{repository}}",
           "refId": "A"
@@ -1215,14 +1215,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Critical\"})",
           "interval": "",
           "legendFormat": "{{severity}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"High\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1230,7 +1230,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Medium\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1238,7 +1238,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Low\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1246,7 +1246,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Unknown\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1322,7 +1322,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=\"$project\"})",
           "interval": "",
           "legendFormat": "{{repository}}",
           "refId": "A"
@@ -1512,14 +1512,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Critical\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Critical\"})",
           "interval": "",
           "legendFormat": "{{severity}}",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"High\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"High\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1527,7 +1527,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Medium\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Medium\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1535,7 +1535,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Low\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Low\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1543,7 +1543,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by (project,severity) (harbor_image_vulnerabilities{project=\"$project\",severity=\"Unknown\"})",
+          "expr": "sum by (project,severity) (harbor_image_vulnerabilities_total{project=\"$project\",severity=\"Unknown\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{severity}}",
@@ -1619,7 +1619,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (project,repository) (harbor_image_vulnerabilities{project=\"$project\"})",
+          "expr": "sum by (project,repository) (harbor_image_vulnerabilities_total{project=\"$project\"})",
           "interval": "",
           "legendFormat": "{{repository}}",
           "refId": "A"
@@ -1843,7 +1843,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum by (project, repository, description, package, id, version, fix_version, severity) (harbor_image_vulnerabilities{project=~\"$project\",severity=~\"Critical|High\"})",
+          "expr": "max by (project, repository, id, package, version, fix_version, severity, description) (harbor_image_vulnerability{project=~\"$project\",severity=~\"Critical|High\"} * on(id) group_left(description) harbor_vulnerability_info or on(project, repository, id, package, version, fix_version, severity) harbor_image_vulnerability{project=~\"$project\",severity=~\"Critical|High\"})",
           "format": "table",
           "instant": true,
           "interval": "",
