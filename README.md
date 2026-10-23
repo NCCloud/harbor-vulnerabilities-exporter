@@ -1,6 +1,6 @@
 # Harbor Vulnerabilities Exporter
 <p float="left">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/2066px-Prometheus_software_logo.svg.png" width="200" height="200" />
+  <img src="https://raw.githubusercontent.com/cncf/artwork/main/projects/prometheus/icon/color/prometheus-icon-color.svg" width="200" height="200" />
   <img src="https://goharbor.io/img/logos/harbor-icon-color.png" width="200" height="200"  />
 </p>
 

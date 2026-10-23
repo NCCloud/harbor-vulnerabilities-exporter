@@ -4,6 +4,18 @@ on:
   push:
     branches:
       - main
+    # changes which don't affect the image shouldn't create a release
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+      - "grafana-dashboard.*"
+      - "tests/**"
+      - ".flake8"
+      - ".gitignore"
+      - "Makefile"
+      - "requirements-dev.txt"
+      - ".github/dependabot.yml"
+      - ".github/workflows/ci.yaml"
 
 env:
   REGISTRY: "ghcr.io"
