@@ -1,2 +1,2 @@
 -r requirements.txt
-flake8==7.4.1
+flake8==7.5.0
